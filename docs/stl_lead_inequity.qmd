@@ -1,0 +1,36 @@
+---
+title: "stl_lead_inequity"
+format: html
+editor: visual
+---
+```{r}
+library(tidyverse)
+library(janitor)
+library(here)
+stl_lead <- read_csv(here::here("data", "stl_lead.csv"), na = c(".", "missing")) %>% clean_names()
+```
+
+## important line, reference for new learning (ex: piping ) 
+```{r}
+
+stl_lead_prop <- stl_lead %>% mutate(prop_white = (white / total_pop)*100 )
+
+```
+
+```{r}
+stl_lead_plot <- ggplot(data = stl_lead_prop, aes(x = stl_lead_prop$pct_elevated, y= stl_lead_prop$prop_white, color = stl_lead$pct_elevated)) + geom_point(alpha = 5)
+stl_lead_plot
+
+```
+# as proportion of white population increases, lead proportion decreases. 
+```{r}
+ggsave(here("figs","stl_lead_plot.png"), width=6, height=5)
+```
+
+```{r}
+#ggplot(pctElevated) 
+```
+
+
+
+
